@@ -36,7 +36,7 @@ This setup provides a stable, high-performance remote lab environment that allow
 - OpenSSH on Windows host  
 - SSH config with key-based authentication  
 
-![Demo](images/project_0.png)
+![Description of image](images/project_0.png)
 
 ---
 
@@ -50,7 +50,7 @@ Permission denied (publickey)
 ---
 
 ## Investigation
-Ref: https://woshub.com/using-ssh-key-based-authentication-on-windows/
+https://woshub.com/using-ssh-key-based-authentication-on-windows/
 
 Initial assumptions:
 - Incorrect key placement  
@@ -68,8 +68,9 @@ Since standard checks did not reveal the issue, I reviewed the sshd_config for c
 
 ## What works for me
 
-Comment out sshd config: 
+Comment out sshd config 
 Match Group administrators  
 
 This overrides the default key location and uses:
 C:\ProgramData\ssh\administrators_authorized_keys
+
