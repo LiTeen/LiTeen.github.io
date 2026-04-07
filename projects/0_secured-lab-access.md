@@ -1,40 +1,26 @@
-# Automated Remote Lab (Kali + Tailscale + SSH)
+# Automated Remote Lab (Kali VM + Tailscale + SSH)
 
-Automated remote access setup for running Hack The Box labs on a Kali VM.
+An automated workflow for remote Hack The Box labs, designed to instantly link my laptop to a home-based Kali VM. This setup handles all networking and OpenVPN services, providing one-command access to my high-performance desktop from any location.
 
----
 
-## Workflow
+ 
+>### Workflow
 
-Laptop → One command SSH (Tailscale) → Home PC 
+Laptop → one-command  → Home desktop 
 
-`kali-go` = start Kali linux VM Virtual box → Auto connect to HTB OpenVPN
+`kali-go` = start Kali linux VM → SSH connect to kali → Auto connect to HTB OpenVPN
 
-`kali-stop` = stop Kali linux VM Virtual box
+`kali-stop` = end Kali linux VM 
 
----
+
 
 ## What I Built
 
-- Remote VM control via SSH over Tailscale  
-- Headless Kali startup using custom PowerShell function (`kali-go` & `kali-stop`)  
-- Auto-connect to HTB OpenVPN on boot  
-- SSH key-based authentication (password disabled)  
-
----
-
-## Why This Setup
-
-This setup provides a stable, high-performance remote lab environment that allows for faster startups and access from anywhere.
-
----
-
-## Key Implementation Details
-
 - Tailscale used as secure network layer (no port forwarding)  
-- VirtualBox for Kali VM  
-- OpenSSH on Windows host  
-- SSH config with key-based authentication  
+- Remote VirtualBox control via SSH over Tailscale  
+- Auto-connect to HTB OpenVPN on every boot up 
+- SSH key-based authentication (password disabled)
+- Headless Kali Linux startup using custom PowerShell function 
 
 ![](../images/project_0.png)
 
@@ -47,11 +33,9 @@ SSH login failed after switching to key-based authentication.
 Error:
 Permission denied (publickey)
 
----
 
-## Investigation
-https://woshub.com/using-ssh-key-based-authentication-on-windows/
-
+### Investigation
+```
 Initial assumptions:
 - Incorrect key placement  
 - Wrong file permissions  
@@ -61,16 +45,24 @@ Verified:
 - Public key exists in authorized_keys  
 - Permissions are correctly set  
 - User configuration is valid  
+```
 
-Since standard checks did not reveal the issue, I reviewed the sshd_config for conditional rules.
+### What works for me
+
+[Reference](https://woshub.com/using-ssh-key-based-authentication-on-windows/)
+
+- Commented out the Match Group administrators directive in sshd_config
+- Restarted SSH service
+
+This overrides the default key location and uses:
+C:\ProgramData\ssh\authorized_keys
 
 ---
 
-## What works for me
+### Future Updates
 
-Comment out sshd config 
-Match Group administrators  
 
-This overrides the default key location and uses:
-C:\ProgramData\ssh\administrators_authorized_keys
+1. Still need to manually enter SSH password for Kali VM.
 
+---
+[Home](../README.md) 
