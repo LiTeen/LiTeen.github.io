@@ -36,7 +36,7 @@ This setup provides a stable, high-performance remote lab environment that allow
 - OpenSSH on Windows host  
 - SSH config with key-based authentication  
 
-![Description of image](images/project_0.png)
+![](../images/project_0.png)
 
 ---
 
